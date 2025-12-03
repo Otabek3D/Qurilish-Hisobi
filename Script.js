@@ -167,15 +167,36 @@ document.getElementById('hisobla').onclick = () => {
 document.getElementById('exportPDF').onclick = () => {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
+
+  // Sarlavha
   doc.setFontSize(16);
   doc.text('Qurilish Hisobi', 14, 20);
-  let y = 35;
-  document.querySelectorAll('#natija tbody tr').forEach(tr => {
-    const cells = tr.querySelectorAll('td');
-    const text = `${cells[0].textContent ? cells[0].textContent+': ' : ''}${cells[1].textContent}: ${cells[3].textContent} ${cells[2].textContent}`;
-    doc.setFontSize(12);
-    doc.text(text, 14, y);
-    y += 10;
+
+  // Jadvalni PDF ga chiqarish (faqat bitta jadval!)
+  doc.autoTable({
+    html: '#natija',
+    startY: 30,
+
+    theme: 'grid',   // to'liq borderlar
+    styles: {
+      fontSize: 10,
+      cellPadding: 3,
+      lineWidth: 0.2,
+      lineColor: [50, 50, 50]
+    },
+    headStyles: {
+      fillColor: [225, 232, 255],
+      textColor: [40, 40, 120],
+      halign: 'center',
+      lineWidth: 0.5
+    },
+    bodyStyles: {
+      textColor: [30, 30, 30],
+      lineWidth: 0.2
+    }
   });
+
   doc.save('qurilish_hisobi.pdf');
 };
+// PDF saqlash
+  doc.save('qurilish_hisobi.pdf');

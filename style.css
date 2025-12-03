@@ -190,7 +190,6 @@ h2 {
   margin: 18px 0;
 }
 
-/* Jadval */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -201,7 +200,7 @@ table {
 
 th, td {
   padding: 8px;
-  border-bottom: 1px solid var(--border);
+  border: 1px solid var(--border); /* <-- 4 tomoni bilan border */
   font-size: 14px;
 }
 
@@ -210,6 +209,7 @@ th {
   color: var(--primary);
   font-weight: normal;
 }
+
 
 /* Mobil uchun */
 @media (max-width: 600px) {
