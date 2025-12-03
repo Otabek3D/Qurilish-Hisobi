@@ -66,12 +66,12 @@ h2 {
 
 .input-group input,
 .input-group select {
-  width: 100%;
-  padding: 6px 6px 4px;
+  padding: 6px 8px 4px;
   font-size: 14px;
   border: 1px solid var(--border);
   border-radius: 3px;
   background: #ffffff;
+  text-align: right
 }
 
 .input-group label {
@@ -167,6 +167,7 @@ h2 {
   border-radius: 3px;
   cursor: pointer;
   font-size: 13px;
+  margin-left: auto;
 }
 
 .add,
