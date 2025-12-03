@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Qurilish Hisoblash</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrapper">
+
+  <h2>QURILISH HISOBI</h2>
+
+  <!-- BETON -->
+  <section class="block-section" id="beton">
+    <h3>Beton</h3>
+    <div class="item template">
+      <div class="input-group">
+        <select class="tur">
+          <option value="Podushka">Podushka</option>
+          <option value="Lenta">Lenta</option>
+          <option value="Kolonna">Kolonna</option>
+          <option value="Sesma">Sesma</option>
+        </select>
+        <label>Tur</label>
+      </div>
+      <div class="input-group">
+        <input type="number" class="uzunlik" placeholder=" ">
+        <label>Uzunlik (m)</label>
+      </div>
+      <div class="input-group">
+        <input type="number" class="balandlik" placeholder=" ">
+        <label>Balandlik (m)</label>
+      </div>
+      <div class="input-group">
+        <input type="number" class="eni" placeholder=" ">
+        <label>Eni (m)</label>
+      </div>
+
+      <div class="armatura-material-wrapper">
+        <div class="armatura-box">
+          <span class="title">Armatura</span>
+          <label><span>12 mm</span><input type="radio" name="arm0" value="12"></label>
+          <label><span>16 mm</span><input type="radio" name="arm0" value="16"></label>
+          <label><span>18 mm</span><input type="radio" name="arm0" value="18"></label>
+          <div class="input-group">
+            <input type="number" class="armatura_qator" placeholder=" ">
+            <label>Qator</label>
+          </div>
+        </div>
+        <div class="material-box">
+          <div class="input-group">
+            <input type="number" class="sement" placeholder=" ">
+            <label>Sement (kg/m³)</label>
+          </div>
+          <div class="input-group">
+            <input type="number" class="shagal" placeholder=" ">
+            <label>Shag‘al (kg/m³)</label>
+          </div>
+        </div>
+        <button class="remove">–</button>
+      </div>
+    </div>
+    <button class="add">Qo‘shish</button>
+  </section>
+
+  <!-- DEVOR -->
+  <section class="block-section" id="devor">
+    <h3>Devor</h3>
+    <div class="item template">
+      <div class="input-group">
+        <input type="text" class="d_id" placeholder=" ">
+        <label>Devor ID (masalan: w1)</label>
+      </div>
+      <div class="input-group">
+        <input type="number" class="d_uzunlik" placeholder=" ">
+        <label>Uzunlik (m)</label>
+      </div>
+      <div class="input-group">
+        <input type="number" class="d_balandlik" placeholder=" ">
+        <label>Balandlik (m)</label>
+      </div>
+      <div class="input-group">
+        <input type="number" class="d_qalinlik" placeholder=" ">
+        <label>Qalinlik (m)</label>
+      </div>
+
+      <div class="gisht-box">
+        <span class="title">G'isht (sm)</span>
+        <div class="input-group">
+          <input type="number" class="g_uzunlik" value="25">
+          <label>Uzunligi</label>
+        </div>
+        <div class="input-group">
+          <input type="number" class="g_balandlik" value="7">
+          <label>Balandligi</label>
+        </div>
+        <div class="input-group">
+          <input type="number" class="g_qalinlik" value="12">
+          <label>Eni</label>
+        </div>
+      </div>
+      <button class="remove">–</button>
+    </div>
+    <button class="add">Qo‘shish</button>
+  </section>
+
+  <!-- DERAZA -->
+  <section class="block-section" id="deraza">
+    <h3>Deraza</h3>
+    <div class="item template">
+      <div class="input-group">
+        <input type="number" class="dr_eni" placeholder=" ">
+        <label>Eni (m)</label>
+      </div>
+      <div class="input-group">
+        <input type="number" class="dr_balandlik" placeholder=" ">
+        <label>Balandlik (m)</label>
+      </div>
+      <div class="input-group">
+        <input type="number" class="dr_soni" value="1">
+        <label>Soni</label>
+      </div>
+      <div class="input-group">
+        <select class="dr_dev_id"><option value="">Devor ID tanlang</option></select>
+        <label>Devor ID</label>
+      </div>
+      <button class="remove">–</button>
+    </div>
+    <button class="add">Qo‘shish</button>
+  </section>
+
+  <!-- ESHIK -->
+  <section class="block-section" id="eshik">
+    <h3>Eshik</h3>
+    <div class="item template">
+      <div class="input-group">
+        <input type="number" class="e_eni" placeholder=" ">
+        <label>Eni (m)</label>
+      </div>
+      <div class="input-group">
+        <input type="number" class="e_balandlik" placeholder=" ">
+        <label>Balandlik (m)</label>
+      </div>
+      <div class="input-group">
+        <input type="number" class="e_soni" value="1">
+        <label>Soni</label>
+      </div>
+      <div class="input-group">
+        <select class="e_dev_id"><option value="">Devor ID tanlang</option></select>
+        <label>Devor ID</label>
+      </div>
+      <button class="remove">–</button>
+    </div>
+    <button class="add">Qo‘shish</button>
+  </section>
+
+  <!-- TOM -->
+  <section class="block-section" id="tom">
+    <h3>Tom</h3>
+    <div class="item template">
+      <div class="input-group">
+        <input type="number" class="tom_narx" placeholder=" ">
+        <label>1 m² narxi (so‘m)</label>
+      </div>
+      <div class="input-group">
+        <input type="number" class="tom_maydon" placeholder=" ">
+        <label>Maydon (m²)</label>
+      </div>
+      <button class="remove">–</button>
+    </div>
+    <button class="add">Qo‘shish</button>
+  </section>
+
+  <div class="button-wrapper">
+    <button id="hisobla">HISOBLASH</button>
+    <button id="exportPDF">PDF Export</button>
+  </div>
+
+  <h3>Yakuniy Natija</h3>
+  <table id="natija" style="display:none;">
+    <thead>
+      <tr>
+        <th>Tur</th>
+        <th>Mahsulot</th>
+        <th>O‘lcham</th>
+        <th>Jami</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+</div>
+
+<!-- JS fayllarni shu yerda ulaymiz -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
+  <script src="Script.js"></script>
+</body>
+</html>
