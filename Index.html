@@ -9,7 +9,17 @@
 <body>
 <div class="wrapper">
 
+<!-- Font Awesome (ikonlar) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<div class="header">
   <h2>QURILISH HISOBI</h2>
+  <a class="promo" href="https://t.me/Pro3Digy" target="_blank" rel="noopener">
+    <i class="fa-brands fa-telegram"></i>
+    Uy-joy loyihasi va Dizayn xizmati
+  </a>
+</div>
+
 
   <!-- BETON -->
   <section class="block-section" id="beton">
@@ -38,16 +48,30 @@
       </div>
 
       <div class="armatura-material-wrapper">
-        <div class="armatura-box">
-          <span class="title">Armatura</span>
-          <label><span>12 mm</span><input type="radio" name="arm0" value="12"></label>
-          <label><span>16 mm</span><input type="radio" name="arm0" value="16"></label>
-          <label><span>18 mm</span><input type="radio" name="arm0" value="18"></label>
-          <div class="input-group">
-            <input type="number" class="armatura_qator" placeholder=" ">
-            <label>Qator</label>
-          </div>
-        </div>
+<div class="armatura-box">
+  <span class="title">Armatura</span>
+
+  <div class="radio-group">
+    <label>
+      <input type="radio" name="arm0" value="12">
+      <div>12 mm</div>
+    </label>
+    <label>
+      <input type="radio" name="arm0" value="16">
+      <div>16 mm</div>
+    </label>
+    <label>
+      <input type="radio" name="arm0" value="18">
+      <div>18 mm</div>
+    </label>
+  </div>
+
+  <div class="input-group">
+    <input type="number" class="armatura_qator" placeholder=" ">
+    <label>Qator</label>
+  </div>
+</div>
+
         <div class="material-box">
           <div class="input-group">
             <input type="number" class="sement" placeholder=" ">

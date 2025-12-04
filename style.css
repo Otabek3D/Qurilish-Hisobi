@@ -1,5 +1,5 @@
 :root {
-  --primary: #2563eb;
+  --primary: #96addf;
   --success: #10b981;
   --danger: #ef4444;
   --border: #d0d7e2;
@@ -24,13 +24,37 @@ body {
   max-width: 780px;
 }
 
-h2 {
-  text-align: center;
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly; /* h2 chapda, promo o‘ngda */
   margin-bottom: 12px;
+}
+
+.header h2 {
+  margin: 0;
   color: var(--primary);
   font-size: 20px;
   font-weight: normal;
 }
+
+.promo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fd964c;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.promo:hover { background: #ea580c; }
+
+.promo .fa-telegram { font-size: 18px; }
+
+
 
 .block-section {
   background: var(--bg);
@@ -97,53 +121,58 @@ h2 {
   top: -7px;
   left: 4px;
   font-size: 11px;
-  color: var(--primary);
+  color: gray;
 }
 
-/* Armatura va materiallar */
 .armatura-material-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
+  display: flex;          /* yonma-yon joylash */
+  justify-content: space-between; /* chapda armatura, o‘ngda material */
+  align-items: flex-start;
   gap: 8px;
-  margin-top: 4px;
 }
+
 
 .armatura-box {
-  flex: 1;
-  min-width: 250px;
-  padding: 8px;
+  display: flex;          /* hamma elementlar bir qatorda */
+  align-items: center;    /* vertikal markazlash */
+  gap: 12px;              /* elementlar orasida masofa */
+  padding: 6px;
   border: 1px solid var(--border);
-  background: #eef3ff;
   border-radius: 4px;
-  font-size: 14px;
-}
-
-.armatura-box .title {
-  margin-bottom: 6px;
-  color: var(--primary);
-  font-weight: normal;
-}
-
-.armatura-box label {
+  background: #f9fafb;
   font-size: 13px;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  margin-right: 6px;
 }
+.armatura-box .title {
+  font-size: 14px;
+  color: var(--primary);
+  margin-right: 8px;
+}
+
+
+.radio-group {
+  display: flex;          /* radio tugmalar yonma-yon */
+  gap: 10px;
+}
+.radio-group label {
+  display: flex;
+  flex-direction: column; /* radio tugma ustida, yozuv tagida */
+  align-items: center;
+  font-size: 13px;
+}
+
 
 .armatura-box input[type="radio"] {
   transform: scale(0.85);
 }
 
 .material-box {
-  flex: 1;
-  min-width: 200px;
   display: flex;
   gap: 6px;
-  align-items: end;
 }
+.material-box .input-group {
+  flex: 1; /* sement va shag‘al teng joy egallaydi */
+}
+
 
 /* Gisht bo‘limi */
 .gisht-box {
@@ -174,7 +203,7 @@ h2 {
 .add,
 #hisobla,
 #exportPDF {
-  padding: 8px 14px;
+  padding: 4px 8px;
   border: none;
   border-radius: 3px;
   cursor: pointer;
