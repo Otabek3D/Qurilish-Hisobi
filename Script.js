@@ -178,7 +178,7 @@ document.getElementById('hisobla').onclick = () => {
       addRow(tur, 'Armatura', diam + ' mm', d.armatura[diam].toFixed(2) + ' m');
     });
     if (d.sement) addRow(tur, 'Sement', 'kg', d.sement.toFixed(1));
-    if (d.shagal) addRow(tur, 'Shag‘al', 'kg', d.shagal.toFixed(1));
+    if (d.shagal) addRow(tur, 'Shag‘al', 'm³', d.shagal.toFixed(3));
   });
 
   if (total_tom) addRow('', 'Tom material', 'so‘m', total_tom.toLocaleString());
@@ -201,7 +201,7 @@ document.getElementById('hisobla').onclick = () => {
     if (jami_armatura[d]) addRow('JAMI', 'Armatura', d + ' mm', jami_armatura[d].toFixed(2) + ' m');
   });
   if (jami_sement > 0) addRow('JAMI', 'Sement', 'kg', jami_sement.toFixed(1));
-  if (jami_shagal > 0) addRow('JAMI', 'Shag‘al', 'kg', jami_shagal.toFixed(1));
+  if (jami_shagal > 0) addRow('JAMI', 'Shag‘al', 'm³', jami_shagal.toFixed(3));
 };
 
 // PDF export (o‘zgarmadi)

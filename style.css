@@ -237,6 +237,11 @@ th {
   color: var(--primary);
   font-weight: normal;
 }
+/* Template blokdagi remove tugmasini yashirish */
+.item.template .remove {
+  display: none;
+}
+
 
 
 /* Mobil uchun */
