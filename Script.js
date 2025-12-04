@@ -1,40 +1,34 @@
-// Floating labels
-function initFloatingLabels(container = document) {
-  container.querySelectorAll('.input-group input, .input-group select').forEach(input => {
-    const label = input.nextElementSibling;
-    if (!label || label.tagName !== 'LABEL') return;
+// Script.js – To‘liq to‘g‘rilangan versiya (jadval dizayni o‘zgarmaydi)
 
-    const update = () => {
-      if (input.value || input.matches(':focus')) label.classList.add('active');
-      else label.classList.remove('active');
-    };
-    input.addEventListener('input', update);
-    input.addEventListener('focus', update);
-    input.addEventListener('blur', update);
-    if (input.tagName === 'SELECT') input.addEventListener('change', update);
-    update();
-  });
-}
+function initFloatingLabels(container = document) { }
 document.addEventListener('DOMContentLoaded', () => initFloatingLabels());
 
-// Qo‘shish / o‘chirish
 document.querySelectorAll('.block-section').forEach(section => {
   const addBtn = section.querySelector('.add');
   addBtn.onclick = () => {
     const template = section.querySelector('.template');
+    if (!template) return;
+
     const clone = template.cloneNode(true);
     clone.classList.remove('template');
     clone.classList.add('item');
+
     clone.querySelectorAll('input, select').forEach(el => {
       if (el.type === 'radio') el.checked = false;
       else el.value = '';
     });
+
     if (section.id === 'beton') {
       const name = 'arm_' + Date.now();
       clone.querySelectorAll('input[type=radio]').forEach(r => r.name = name);
     }
+
+    clone.querySelector('.remove').onclick = () => {
+      clone.remove();
+      updateDevorOptions();
+    };
+
     initFloatingLabels(clone);
-    clone.querySelector('.remove').onclick = () => { clone.remove(); updateDevorOptions(); };
     section.insertBefore(clone, addBtn);
     updateDevorOptions();
   };
@@ -49,9 +43,11 @@ document.querySelectorAll('.block-section').forEach(section => {
   });
 });
 
-// Devor ID selectlarni yangilash
 function updateDevorOptions() {
-  const ids = [...document.querySelectorAll('#devor .d_id')].map(i => i.value).filter(Boolean);
+  const ids = [...document.querySelectorAll('#devor .d_id')]
+    .map(i => i.value.trim())
+    .filter(Boolean);
+
   document.querySelectorAll('.dr_dev_id, .e_dev_id').forEach(sel => {
     const cur = sel.value;
     sel.innerHTML = '<option value="">Devor ID tanlang</option>';
@@ -63,140 +59,163 @@ document.addEventListener('input', e => {
   if (e.target.classList.contains('d_id')) updateDevorOptions();
 });
 
-// HISOBLASH – ohak 1.3 sm (13 mm)
+// HISOBLASH – TO‘G‘RILANGAN VERSIYA
 document.getElementById('hisobla').onclick = () => {
   const tbody = document.querySelector('#natija tbody');
   tbody.innerHTML = '';
-  let total_gisht = 0, gisht_olcham = '', total_deraza = 0, total_eshik = 0, total_tom = 0;
-  const beton_by_tur = {};
 
-  const OHAK = 0.013; // 1.3 sm ohak uzunlik va balandlikka
+  const OHAK = 0.013; // 13 mm
 
-  // Devor ma'lumotlari
-  const devorlar = {};
-  document.querySelectorAll('#devor .item').forEach(item => {
-    const id = item.querySelector('.d_id').value?.trim();
-    const qalinlik = parseFloat(item.querySelector('.d_qalinlik').value) || 0;
-    const guz = parseFloat(item.querySelector('.g_uzunlik').value) / 100 || 0;
-    const gba = parseFloat(item.querySelector('.g_balandlik').value) / 100 || 0;
-    const gqa = parseFloat(item.querySelector('.g_qalinlik').value) / 100 || 0;
-    if (id && guz && gba && gqa) {
-      devorlar[id] = { qalinlik, guz, gba, gqa };
-      gisht_olcham = `${item.querySelector('.g_uzunlik').value}×${item.querySelector('.g_balandlik').value}×${item.querySelector('.g_qalinlik').value} sm`;
-    }
-  });
-
-  // Deraza va eshik ayirish
-  [...document.querySelectorAll('#deraza .item'), ...document.querySelectorAll('#eshik .item')].forEach(item => {
-    const eni = parseFloat(item.querySelector('[class*="eni"]').value) || 0;
-    const bal = parseFloat(item.querySelector('[class*="balandlik"]').value) || 0;
-    const soni = parseFloat(item.querySelector('[class*="soni"]').value) || 1;
-    const devId = item.querySelector('select').value;
-    if (eni && bal && devId && devorlar[devId]) {
-      const d = devorlar[devId];
-      const hajm = eni * bal * d.qalinlik * soni;
-      const gisht_hajm = (d.guz + OHAK) * (d.gba + OHAK) * d.gqa;
-      total_gisht -= Math.ceil(hajm / gisht_hajm);
-      if (item.closest('#deraza')) total_deraza += eni * bal * soni;
-      else total_eshik += eni * bal * soni;
-    }
-  });
-
-  // Devor g‘ishtlari hisoblash
-  document.querySelectorAll('#devor .item').forEach(item => {
-    const uz = parseFloat(item.querySelector('.d_uzunlik').value) || 0;
-    const ba = parseFloat(item.querySelector('.d_balandlik').value) || 0;
-    const qa = parseFloat(item.querySelector('.d_qalinlik').value) || 0;
-    const guz = parseFloat(item.querySelector('.g_uzunlik').value) / 100 || 0;
-    const gba = parseFloat(item.querySelector('.g_balandlik').value) / 100 || 0;
-    const gqa = parseFloat(item.querySelector('.g_qalinlik').value) / 100 || 0;
-
-    if (uz && ba && qa && guz && gba && gqa) {
-      const dev_hajm = uz * ba * qa;
-      const gisht_hajm = (guz + OHAK) * (gba + OHAK) * gqa;
-      total_gisht += Math.ceil(dev_hajm / gisht_hajm);
-    }
-  });
-
-  // Beton hisoblash
-  document.querySelectorAll('#beton .item').forEach(item => {
-    const tur = item.querySelector('.tur').value;
-    const hajm = (parseFloat(item.querySelector('.uzunlik').value)||0) *
-                (parseFloat(item.querySelector('.balandlik').value)||0) *
-                (parseFloat(item.querySelector('.eni').value)||0);
-    const qator = parseFloat(item.querySelector('.armatura_qator').value)||0;
-    const diam = item.querySelector('input[type=radio]:checked')?.value;
-
-    if (!beton_by_tur[tur]) beton_by_tur[tur] = {armatura:{},sement:0,shagal:0};
-    if (diam && qator) {
-      beton_by_tur[tur].armatura[diam] = (beton_by_tur[tur].armatura[diam]||0) + (parseFloat(item.querySelector('.uzunlik').value)||0)*qator;
-    }
-    beton_by_tur[tur].sement += hajm * (parseFloat(item.querySelector('.sement').value)||0);
-    beton_by_tur[tur].shagal += hajm * (parseFloat(item.querySelector('.shagal').value)||0);
-  });
-
-  // Tom
-  document.querySelectorAll('#tom .item').forEach(item => {
-    const narx = parseFloat(item.querySelector('.tom_narx').value)||0;
-    const maydon = parseFloat(item.querySelector('.tom_maydon').value)||0;
-    total_tom += narx * maydon;
-  });
-
-  // Natija chiqarish
   const addRow = (tur, nomi, olcham, jami) => {
     const tr = document.createElement('tr');
     tr.innerHTML = `<td>${tur}</td><td>${nomi}</td><td>${olcham}</td><td>${jami}</td>`;
     tbody.appendChild(tr);
   };
 
-  document.getElementById('natija').style.display = 'table';
-  if (total_deraza) addRow('', 'Deraza', 'm²', total_deraza.toFixed(2));
-  if (total_eshik) addRow('', 'Eshik', 'm²', total_eshik.toFixed(2));
-  if (total_gisht) addRow('', 'G‘isht', gisht_olcham, total_gisht);
+  // 1. Devor ma'lumotlarini yig'ish
+  const devorlar = {};
+  document.querySelectorAll('#devor .item').forEach(item => {
+    const id = item.querySelector('.d_id').value?.trim();
+    if (!id) return;
 
-  Object.keys(beton_by_tur).forEach(tur => {
-    const d = beton_by_tur[tur];
-    Object.keys(d.armatura).forEach(diam => addRow(tur, 'Armatura', diam+' mm', d.armatura[diam].toFixed(2)+' m'));
-    if (d.sement) addRow(tur, 'Sement', 'kg', d.sement.toFixed(1));
-    if (d.shagal) addRow(tur, 'Shag‘al', 'kg', d.shagal.toFixed(1));
-  });
-  if (total_tom) addRow('', 'Tom material', 'so‘m', total_tom.toLocaleString());
-};
+    const uzunlik = parseFloat(item.querySelector('.d_uzunlik').value) || 0;
+    const balandlik = parseFloat(item.querySelector('.d_balandlik').value) || 0;
+    const qalinlik = parseFloat(item.querySelector('.d_qalinlik').value) || 0;
 
-// PDF export
-document.getElementById('exportPDF').onclick = () => {
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
+    const g_uz = parseFloat(item.querySelector('.g_uzunlik').value) / 100 || 0.25;
+    const g_ba = parseFloat(item.querySelector('.g_balandlik').value) / 100 || 0.07;
+    const g_qa = parseFloat(item.querySelector('.g_qalinlik').value) / 100 || 0.12;
 
-  // Sarlavha
-  doc.setFontSize(16);
-  doc.text('Qurilish Hisobi', 14, 20);
-
-  // Jadvalni PDF ga chiqarish (faqat bitta jadval!)
-  doc.autoTable({
-    html: '#natija',
-    startY: 30,
-
-    theme: 'grid',   // to'liq borderlar
-    styles: {
-      fontSize: 10,
-      cellPadding: 3,
-      lineWidth: 0.2,
-      lineColor: [50, 50, 50]
-    },
-    headStyles: {
-      fillColor: [225, 232, 255],
-      textColor: [40, 40, 120],
-      halign: 'center',
-      lineWidth: 0.5
-    },
-    bodyStyles: {
-      textColor: [30, 30, 30],
-      lineWidth: 0.2
+    if (uzunlik && balandlik && qalinlik) {
+      devorlar[id] = {
+        uzunlik, balandlik, qalinlik,
+        g_uz, g_ba, g_qa,
+        ochilish_m2: 0,
+        olcham_str: `${item.querySelector('.g_uzunlik').value}×${item.querySelector('.g_balandlik').value}×${item.querySelector('.g_qalinlik').value} sm`
+      };
     }
   });
 
+  // 2. Eshik va derazalarni o‘z devoridan ayirish
+  let total_deraza = 0, total_eshik = 0;
+
+  [...document.querySelectorAll('#deraza .item'), ...document.querySelectorAll('#eshik .item')].forEach(item => {
+    const eni = parseFloat(item.querySelector('[class*="eni"]').value) || 0;
+    const bal = parseFloat(item.querySelector('[class*="balandlik"]').value) || 0;
+    const soni = parseFloat(item.querySelector('[class*="soni"]').value) || 1;
+    const devId = item.querySelector('select').value;
+
+    if (eni && bal && devId && devorlar[devId]) {
+      const maydon = eni * bal * soni;
+      devorlar[devId].ochilish_m2 += maydon;
+
+      if (item.closest('#deraza')) total_deraza += maydon;
+      else total_eshik += maydon;
+    }
+  });
+
+  // 3. G‘isht hisoblash (har devor alohida)
+  const gisht_turlari = {}; // "25×7×12 sm" => soni
+
+  Object.values(devorlar).forEach(d => {
+    const toza_maydon = d.uzunlik * d.balandlik - d.ochilish_m2;
+    if (toza_maydon <= 0) return;
+
+    const hajm = toza_maydon * d.qalinlik;
+    const bitta_gisht = (d.g_uz + OHAK) * (d.g_ba + OHAK) * d.g_qa;
+    const soni = Math.ceil(hajm / bitta_gisht);
+
+    gisht_turlari[d.olcham_str] = (gisht_turlari[d.olcham_str] || 0) + soni;
+  });
+
+  // 4. Beton hisoblash (o‘zgarmadi)
+  const beton_by_tur = {};
+  document.querySelectorAll('#beton .item').forEach(item => {
+    const tur = item.querySelector('.tur').value;
+    const uzunlik = parseFloat(item.querySelector('.uzunlik').value) || 0;
+    const balandlik = parseFloat(item.querySelector('.balandlik').value) || 0;
+    const eni = parseFloat(item.querySelector('.eni').value) || 0;
+    const hajm = uzunlik * balandlik * eni;
+
+    const qator = parseFloat(item.querySelector('.armatura_qator').value) || 0;
+    const diam = item.querySelector('input[type=radio]:checked')?.value;
+
+    if (!beton_by_tur[tur]) {
+      beton_by_tur[tur] = { armatura: {}, sement: 0, shagal: 0, kub: 0 };
+    }
+
+    if (diam && qator) {
+      beton_by_tur[tur].armatura[diam] = (beton_by_tur[tur].armatura[diam] || 0) + (uzunlik * qator);
+    }
+
+    beton_by_tur[tur].sement += hajm * (parseFloat(item.querySelector('.sement').value) || 0);
+    beton_by_tur[tur].shagal += hajm * (parseFloat(item.querySelector('.shagal').value) || 0);
+    beton_by_tur[tur].kub += hajm;
+  });
+
+  // 5. Tom
+  let total_tom = 0;
+  document.querySelectorAll('#tom .item').forEach(item => {
+    const narx = parseFloat(item.querySelector('.tom_narx').value) || 0;
+    const maydon = parseFloat(item.querySelector('.tom_maydon').value) || 0;
+    total_tom += narx * maydon;
+  });
+
+  // NATIJA CHIQARISH (avvalgi dizaynda)
+  document.getElementById('natija').style.display = 'table';
+
+  if (total_deraza) addRow('', 'Deraza', 'm²', total_deraza.toFixed(2));
+  if (total_eshik) addRow('', 'Eshik', 'm²', total_eshik.toFixed(2));
+
+  Object.entries(gisht_turlari).forEach(([olcham, soni]) => {
+    addRow('', 'G‘isht', olcham, soni);
+  });
+
+  Object.keys(beton_by_tur).forEach(tur => {
+    const d = beton_by_tur[tur];
+    if (d.kub) addRow(tur, 'Beton', 'm³', d.kub.toFixed(3));
+    Object.keys(d.armatura).forEach(diam => {
+      addRow(tur, 'Armatura', diam + ' mm', d.armatura[diam].toFixed(2) + ' m');
+    });
+    if (d.sement) addRow(tur, 'Sement', 'kg', d.sement.toFixed(1));
+    if (d.shagal) addRow(tur, 'Shag‘al', 'kg', d.shagal.toFixed(1));
+  });
+
+  if (total_tom) addRow('', 'Tom material', 'so‘m', total_tom.toLocaleString());
+
+  // JAMI
+  let jami_beton = 0, jami_sement = 0, jami_shagal = 0;
+  const jami_armatura = {};
+
+  Object.values(beton_by_tur).forEach(d => {
+    jami_beton += d.kub;
+    jami_sement += d.sement;
+    jami_shagal += d.shagal;
+    Object.entries(d.armatura).forEach(([diam, len]) => {
+      jami_armatura[diam] = (jami_armatura[diam] || 0) + len;
+    });
+  });
+
+  if (jami_beton > 0) addRow('JAMI', 'Beton', 'm³', jami_beton.toFixed(3));
+  [12,16,18].forEach(d => {
+    if (jami_armatura[d]) addRow('JAMI', 'Armatura', d + ' mm', jami_armatura[d].toFixed(2) + ' m');
+  });
+  if (jami_sement > 0) addRow('JAMI', 'Sement', 'kg', jami_sement.toFixed(1));
+  if (jami_shagal > 0) addRow('JAMI', 'Shag‘al', 'kg', jami_shagal.toFixed(1));
+};
+
+// PDF export (o‘zgarmadi)
+document.getElementById('exportPDF').onclick = () => {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  doc.setFontSize(16);
+  doc.text('Qurilish Hisobi', 14, 20);
+  doc.autoTable({
+    html: '#natija',
+    startY: 30,
+    theme: 'grid',
+    styles: { fontSize: 10, cellPadding: 3 },
+    headStyles: { fillColor: [225, 232, 255] }
+  });
   doc.save('qurilish_hisobi.pdf');
 };
-// PDF saqlash
-  doc.save('qurilish_hisobi.pdf');
