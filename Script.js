@@ -305,6 +305,30 @@ removeBtn.onclick = () => {
     if (jami_shagal > 0) addRow('JAMI', 'Shag‘al', 'm³', jami_shagal.toFixed(3));
   };
 
+  document.addEventListener('click', e => {
+  if (e.target.classList.contains('info-icon')) {
+    const open = e.target.dataset.open === '1';
+    document.querySelectorAll('.tooltip').forEach(t => t.remove());
+    document.querySelectorAll('.info-icon').forEach(i => i.dataset.open = '0');
+
+    if (!open) {
+      let t = document.createElement('div');
+      t.className = 'tooltip';
+      t.innerHTML = e.target.dataset.info;
+      document.body.appendChild(t);
+
+      let r = e.target.getBoundingClientRect();
+      t.style.top = (r.bottom + scrollY + 4) + 'px';
+      t.style.left = (r.left + scrollX) + 'px';
+      e.target.dataset.open = '1';
+    }
+  } else {
+    document.querySelectorAll('.tooltip').forEach(t => t.remove());
+    document.querySelectorAll('.info-icon').forEach(i => i.dataset.open = '0');
+  }
+});
+
+
   // ===================== PDF EXPORT =====================
   document.getElementById('exportPDF').onclick = () => {
     const { jsPDF } = window.jspdf;
