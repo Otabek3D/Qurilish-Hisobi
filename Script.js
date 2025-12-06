@@ -1,4 +1,4 @@
-// Script.js – 100% to‘liq yangilangan versiya (Peremychka + Sesma yuzasi bilan)
+// Script.js – 100% to‘liq yangilangan versiya (Peremichka + seysma yuzasi bilan)
 document.addEventListener('DOMContentLoaded', () => {
 
   // Qo‘shish va o‘chirish tugmalari
@@ -68,14 +68,14 @@ removeBtn.onclick = () => {
     }
   });
 
-    // PEREMYCHKA UCHUN UZUNLIK VA ENI NI YOZIB BO‘LMAYDIGAN QILISH
+    // Peremichka UCHUN UZUNLIK VA ENI NI YOZIB BO‘LMAYDIGAN QILISH
   document.querySelector('#beton').addEventListener('change', e => {
     if (e.target.classList.contains('tur')) {
       const item = e.target.closest('.item');
       const uzunlikInp = item.querySelector('.uzunlik');
       const eniInp = item.querySelector('.eni');
 
-      if (e.target.value === 'Peremychka') {
+      if (e.target.value === 'Peremichka') {
         uzunlikInp.readOnly = true;
         eniInp.readOnly = true;
         uzunlikInp.style.backgroundColor = '#f0f0f0';
@@ -133,7 +133,7 @@ removeBtn.onclick = () => {
       }
     });
 
-    // 2. Deraza va eshiklarni yig‘ish + peremychka uchun ma'lumot
+    // 2. Deraza va eshiklarni yig‘ish + Peremichka uchun ma'lumot
     const ochilishlar = []; // { eni, devId, devor_qalinligi }
     let total_deraza = 0, total_eshik = 0;
 
@@ -150,7 +150,7 @@ removeBtn.onclick = () => {
         const return_m2 = ((bal * devorlar[devId].qalinlik) * 2 + (eni * devorlar[devId].qalinlik) * 2) * soni;
         devorlar[devId].return_m2 += return_m2;
 
-        // Peremychka uchun saqlaymiz
+        // Peremichka uchun saqlaymiz
         for (let i = 0; i < soni; i++) {
           ochilishlar.push({
             eni: eni,
@@ -175,14 +175,14 @@ removeBtn.onclick = () => {
       gisht_turlari[d.olcham_str] = (gisht_turlari[d.olcham_str] || 0) + soni;
     });
 
-    // 4. Beton hisoblash (Peremychka maxsus!)
+    // 4. Beton hisoblash (Peremichka maxsus!)
     const beton_by_tur = {};
 
     document.querySelectorAll('#beton .item').forEach(item => {
       const tur = item.querySelector('.tur').value;
 
-      // PEREMYCHKA – maxsus logika
-      if (tur === 'Peremychka') {
+      // Peremichka – maxsus logika
+      if (tur === 'Peremichka') {
         const balandlik = parseFloat(item.querySelector('.balandlik').value) || 0;
         if (balandlik <= 0 || ochilishlar.length === 0) return;
 
@@ -211,7 +211,7 @@ removeBtn.onclick = () => {
         return;
       }
 
-      // Boshqa turlar: Podushka, Lenta, Kolonna, Sesma
+      // Boshqa turlar: Podushka, Lenta, Kolonna, seysma
       const uzunlik = parseFloat(item.querySelector('.uzunlik').value) || 0;
       const balandlik = parseFloat(item.querySelector('.balandlik').value) || 0;
       const eni = parseFloat(item.querySelector('.eni').value) || 0;
@@ -259,18 +259,18 @@ removeBtn.onclick = () => {
       if (d.shagal > 0) addRow(tur, 'Shag‘al', 'm³', d.shagal.toFixed(3));
     });
 
-    // SESMA yuzasini devor yuzasiga qo‘shish (alohida chiqmaydi)
-    let sesma_qosh_yuza = 0;
+    // seysma yuzasini devor yuzasiga qo‘shish (alohida chiqmaydi)
+    let seysma_qosh_yuza = 0;
     document.querySelectorAll('#beton .item').forEach(item => {
-      if (item.querySelector('.tur').value === 'Sesma') {
+      if (item.querySelector('.tur').value === 'seysma') {
         const l = parseFloat(item.querySelector('.uzunlik').value) || 0;
         const h = parseFloat(item.querySelector('.balandlik').value) || 0;
-        if (l > 0 && h > 0) sesma_qosh_yuza += l * h * 2; // tashqi + ichki
+        if (l > 0 && h > 0) seysma_qosh_yuza += l * h * 2; // tashqi + ichki
       }
     });
 
     // Devor yuzasi hisoblash
-    let jami_devor = sesma_qosh_yuza;
+    let jami_devor = seysma_qosh_yuza;
 
     Object.entries(devorlar).forEach(([id, d]) => {
       const fasad = d.uzunlik * d.balandlik - d.ochilish_m2;
@@ -282,7 +282,7 @@ removeBtn.onclick = () => {
     });
 
     if (jami_devor > 0) {
-      addRow('JAMI', 'Umumiy devor yuzasi (sesma bilan)', 'm²', jami_devor.toFixed(2));
+      addRow('JAMI', 'Umumiy devor yuzasi (seysma bilan)', 'm²', jami_devor.toFixed(2));
     }
 
     // JAMI materiallar
