@@ -9,29 +9,29 @@
 <body>
 <div class="wrapper">
 
-<!-- Font Awesome (ikonlar) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Font Awesome (ikonlar) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<div class="header">
-  <h2>QURILISH HISOBI</h2>
-  <a class="promo" href="https://t.me/Pro3Digy" target="_blank" rel="noopener">
-    <i class="fa-brands fa-telegram"></i>
-    Uy-joy loyihasi va Dizayn xizmati
-  </a>
-</div>
-
+  <div class="header">
+    <h2>QURILISH HISOBI</h2>
+    <a class="promo" href="https://t.me/Pro3Digy" target="_blank" rel="noopener">
+      <i class="fa-brands fa-telegram"></i>
+      Uy-joy loyihasi va Dizayn xizmati
+    </a>
+  </div>
 
   <!-- BETON -->
   <section class="block-section" id="beton">
     <h3>Beton</h3>
     <div class="item template">
       <div class="input-group">
-        <select class="tur">
-          <option value="Podushka">Podushka</option>
-          <option value="Lenta">Lenta</option>
-          <option value="Kolonna">Kolonna</option>
-          <option value="Sesma">Sesma</option>
-        </select>
+<select class="tur">
+  <option value="Podushka">Podushka</option>
+  <option value="Lenta">Lenta</option>
+  <option value="Kolonna">Kolonna</option>
+  <option value="Sesma">Sesma</option>
+  <option value="Peremychka">Peremychka</option>   <!-- YANGI -->
+</select>
         <label>Tur</label>
       </div>
       <div class="input-group">
@@ -48,29 +48,29 @@
       </div>
 
       <div class="armatura-material-wrapper">
-<div class="armatura-box">
-  <span class="title">Armatura</span>
+        <div class="armatura-box">
+          <span class="title">Armatura</span>
 
-  <div class="radio-group">
-    <label>
-      <input type="radio" name="arm0" value="12">
-      <div>12mm</div>
-    </label>
-    <label>
-      <input type="radio" name="arm0" value="16">
-      <div>16mm</div>
-    </label>
-    <label>
-      <input type="radio" name="arm0" value="18">
-      <div>18mm</div>
-    </label>
-  </div>
+          <div class="radio-group">
+            <label>
+              <input type="radio" name="arm0" value="12">
+              <div>12mm</div>
+            </label>
+            <label>
+              <input type="radio" name="arm0" value="16">
+              <div>16mm</div>
+            </label>
+            <label>
+              <input type="radio" name="arm0" value="18">
+              <div>18mm</div>
+            </label>
+          </div>
 
-  <div class="input-group">
-    <input type="number" class="armatura_qator" >
-    <label>Qator</label>
-  </div>
-</div>
+          <div class="input-group">
+            <input type="number" class="armatura_qator">
+            <label>Qator</label>
+          </div>
+        </div>
 
         <div class="material-box">
           <div class="input-group">
@@ -93,20 +93,26 @@
     <h3>Devor</h3>
     <div class="item template">
       <div class="input-group">
-        <input type="text" class="d_id" >
+        <input type="text" class="d_id">
         <label>Devor ID</label>
       </div>
       <div class="input-group">
-        <input type="number" class="d_uzunlik" >
+        <input type="number" class="d_uzunlik">
         <label>Uzunlik (m)</label>
       </div>
       <div class="input-group">
-        <input type="number" class="d_balandlik" >
+        <input type="number" class="d_balandlik">
         <label>Balandlik (m)</label>
       </div>
       <div class="input-group">
         <input type="number" class="d_qalinlik">
         <label>Qalinlik (m)</label>
+      </div>
+
+      <!-- Half checkbox: faqat bir tomoni hisoblanadi -->
+      <div class="input-group" style="flex:0 0 auto; min-width:100px;">
+        <label style="font-size:12px; color:#475569;">Half (1 tomon)</label>
+        <input type="checkbox" class="d_half" style="margin:auto;">
       </div>
 
       <div class="gisht-box">
@@ -134,11 +140,11 @@
     <h3>Deraza</h3>
     <div class="item template">
       <div class="input-group">
-        <input type="number" class="dr_eni" >
+        <input type="number" class="dr_eni">
         <label>Eni (m)</label>
       </div>
       <div class="input-group">
-        <input type="number" class="dr_balandlik" >
+        <input type="number" class="dr_balandlik">
         <label>Balandlik (m)</label>
       </div>
       <div class="input-group">
@@ -159,11 +165,11 @@
     <h3>Eshik</h3>
     <div class="item template">
       <div class="input-group">
-        <input type="number" class="e_eni" >
+        <input type="number" class="e_eni">
         <label>Eni (m)</label>
       </div>
       <div class="input-group">
-        <input type="number" class="e_balandlik" >
+        <input type="number" class="e_balandlik">
         <label>Balandlik (m)</label>
       </div>
       <div class="input-group">
@@ -179,23 +185,7 @@
     <button class="add">Qo‘shish</button>
   </section>
 
-  <!-- TOM -->
-  <section class="block-section" id="tom">
-    <h3>Tom</h3>
-    <div class="item template">
-      <div class="input-group">
-        <input type="number" class="tom_narx" >
-        <label>1 m² narxi (so‘m)</label>
-      </div>
-      <div class="input-group">
-        <input type="number" class="tom_maydon" >
-        <label>Maydon (m²)</label>
-      </div>
-      <button class="remove">–</button>
-    </div>
-    <button class="add">Qo‘shish</button>
-  </section>
-
+  <!-- Tugmalar -->
   <div class="button-wrapper">
     <button id="hisobla">HISOBLASH</button>
     <button id="exportPDF">PDF Export</button>
@@ -215,7 +205,7 @@
 
 </div>
 
-<!-- JS fayllarni shu yerda ulaymiz -->
+  <!-- JS fayllar -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
   <script src="Script.js"></script>
